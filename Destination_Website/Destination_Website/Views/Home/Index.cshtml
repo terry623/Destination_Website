@@ -1,0 +1,104 @@
+﻿﻿@{
+    Layout = "../Shared/_Layout.cshtml";
+}
+<h2 id="Login_Title">Log In</h2>
+
+@using (Html.BeginForm("LogIn", "Home", FormMethod.Post, new { @class = "Login" }))
+{
+
+    <p class="input_style">
+        <br />
+        UserName：<input type="text" name="UserName" id="LogInUserName">
+    </p>
+
+    <p class="input_style">
+        <br />
+        PassWord：<input type="password" name="UserPassword" id="LogInUserPassword">
+    </p>
+
+    <div id="LogInMessage"></div>
+
+    <p>
+        <input type="button" value="LogIn" class="btn btn-primary" onclick="CheckLogIn()">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Sign Up</button>
+    </p>
+
+}
+
+<script>
+
+
+    @*window.onload = function () {
+
+        var userAgent = navigator.userAgent;
+        if (/Windows/i.test(userAgent)) {
+              location.assign( '@ViewBag.url');
+        }
+    }*@
+
+
+    function CheckLogIn() {
+        $.ajax({
+            url: '/Home/LogIn',
+            type: 'POST',
+            data: { UserName: $('#LogInUserName').val(), UserPassword: $('#LogInUserPassword').val() },
+            success: function (data) {
+                if (data === "Login Success")
+                    location.assign("/Home/Murri_Index");
+                else
+                    $("#LogInMessage").html(data);
+            }
+        })
+    }
+
+    function CheckRegister() {
+        $.ajax({
+            url: '/Home/Register',
+            type: 'POST',
+            data: { UserName: $('#RegisterUserName').val(), UserPassword: $('#RegisterUserPassword').val() },
+            success: function (data) {
+                if (data === "User Exist")
+                    $("#RegisterMessage").html("User exist");
+                else if (data === "Include illegal word")
+                    $("#RegisterMessage").html(data);
+                else if (data === "Register Success")
+                    location.assign("/Home/Index");
+            }
+        })
+
+    }
+
+</script>
+
+<body>
+
+    <div class="container">
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Creat Account</h4>
+                    </div>
+                    <div class="modal-body">
+                        @using (Html.BeginForm("Register", "Home", FormMethod.Post, new { @class = "Register" }))
+                        {
+                            <h3 align=center>Sign Up</h3>
+                            <p align=center>UserName：<input name="UserName" id="RegisterUserName"></p>
+                            <p align=center>PassWord：<input name="UserPassword" id="RegisterUserPassword" type=password></p>
+                            <div align=center id="RegisterMessage"></div>
+                            <p align=center>
+                                <input type="button" value="Register" onclick="CheckRegister()">
+                                <input type="reset" value="Reset">
+                            </p>
+                        }
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>

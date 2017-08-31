@@ -1,0 +1,117 @@
+﻿body {
+    margin: 0 auto;
+    background-color: Black;
+}
+
+#Login_Title {
+    margin-top: 100px;
+    height: 50px;
+    padding-top: 10px;
+    text-align: center;
+    background-color: #D50000;
+    color: white;
+}
+
+#login_button {
+    text-align: center;
+    color: white;
+}
+
+form.Login {
+    background-color: #FFFFFF;
+    padding-bottom: 20px;
+    text-align: center;
+}
+
+#go_back_button {
+    height: 100%;
+    text-align: center;
+    margin-top: 200px;
+}
+
+#alert {
+    height: 100%;
+    text-align: center;
+    margin-top: 2500px;
+}
+
+#show_title {
+    margin-top: 200px;
+    text-align: center;
+    font-family: Comic Sans MS, cursive, sans-serif;
+    font-size: 30px;
+    color: #00BCD4;
+}
+
+
+p.input_style {
+    font-family: Arial Black,Arial Bold,Gadget,sans-serif;
+}
+
+#title {
+    text-align: center;
+}
+
+#Wait_Page_Title {
+    margin-top: 550px;
+    text-align: center;
+    color: white;
+}
+
+#container_clock {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#clock {
+    color: #F44336;
+    font-size: 10em;
+    font-weight: bold;
+    opacity: 1;
+    animation: blink 2s 1s linear infinite;
+}
+
+
+
+@keyframes blink {
+    0% {
+        opacity: 1;
+    }
+
+    40% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+#wrong_user_img {
+    margin-top: 100px;
+    text-align: center;
+}
+
+#wrong_user {
+    text-align: center;
+    color:white;
+}
+
+#blockUI {
+    padding: 40px;
+    width: auto;
+    color: red;
+    font-family: Arial Black,Arial Bold,Gadget,sans-serif;
+    background-color: black;
+    text-align: center;
+}

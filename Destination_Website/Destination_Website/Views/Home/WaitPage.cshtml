@@ -1,0 +1,71 @@
+﻿@{
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+<script>
+    $(document).ready(function () {
+        function disableBack() { window.history.forward() }
+        window.onload = disableBack();
+        window.onpageshow = function (evt) { if (evt.persisted) disableBack() }
+    });
+</script>
+
+
+
+<h1 id="Wait_Page_Title">Please Click On Desktop Button!</h1>
+<div id="container_clock">
+    <span id="clock">10</span>
+</div>
+
+@section scripts {
+    <script>
+
+        window.onload = function () {
+            var userAgent = navigator.userAgent;
+            if (/Windows/i.test(userAgent)) {
+                location.assign('@ViewBag.computer_url');
+            }
+        }
+
+        var time = 10;
+        var clock = document.getElementById("clock");
+        var signal = null;
+
+        function timer() {
+            var countInterval = setInterval("countDown()", 2000);
+        }
+
+        $(function () {
+
+            $.connection.hub.url = '@ViewBag.url';
+
+            var chat = $.connection.chatHub;
+            chat.client.addNewMessageToPage = function (sender_Id, message) {
+                //alert("A web's hub id : " + sender_Id + "\r\n" + "message : " + message);
+                if (message == "Button Click!") signal = message;
+                else if (message == "Please Scan Again!") $.blockUI({ message: '<div id="blockUI" >Disconnect! Please Scan QRCode Again!</div>' });
+            }
+
+            $.connection.hub.logging = true;
+            $.connection.hub.start().done(function () {
+                $(document).ready(function () {
+                    //alert("B web's hub id : " + $.connection.hub.id);
+                    chat.server.send("@TempData["encode"]", "Finish QRscan!");
+                    timer();
+                });
+            });
+        });
+
+        function countDown() {
+            time--;
+            if (time == 0) {
+                location.href = '@Url.Action("Index", "Home")';
+            }
+            else {
+                if (signal == "Button Click!") location.href = '@Url.Action("Validate_Button", "Home")';
+            }
+            clock.innerText = time;
+        }
+
+    </script>
+}

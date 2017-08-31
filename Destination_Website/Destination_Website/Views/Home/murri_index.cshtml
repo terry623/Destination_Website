@@ -1,0 +1,29 @@
+﻿﻿@{
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+@if (ViewBag.tranferFlag == true)
+{
+    <script type="text/javascript">
+        var stateObj = { flag: 0 };
+        window.history.pushState(stateObj, document.title, location.href.split("?")[0]);
+        location.href = '@Url.Action("btnGoOnclick", "Home", new { userName = @Session["UserName"] })';
+    </script>
+} 
+
+
+<h3 id="show_title">Hello @Session["UserName"] !</h3>
+<div id="login_button">
+    <div class="button">
+        <h1 id="title">Game Center</h1>
+        <br />
+        <button type="button" class="btn btn-primary" onclick="location.href = '@Url.Action("btnGoOnclick", "Home", new { userName = @Session["UserName"] })'">
+            Let's Go
+        </button>
+        <button type="button" class="btn btn-danger" onclick="location.href = '@Url.Action("Index", "Home")'">
+            Log Out !
+        </button>
+    </div>
+</div>
+
+

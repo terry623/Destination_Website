@@ -1,0 +1,15 @@
+﻿@{
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+<div>
+    <div id="go_back_button">
+        <h3 id="show_title">Welcome to Murri Website!!  @Session["UserName"]</h3>
+        <button type="button" onclick="document.location.href = document.referrer" class="btn btn-primary btn-lg">
+            Back Home!!
+        </button>
+        <button type="button" class="btn btn-danger btn-lg" onclick="location.href = '@Url.Action("Index", "Home")'">
+            Log Out !
+        </button>
+    </div>
+</div>
